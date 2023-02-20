@@ -1,0 +1,4 @@
+github.com/btoll/trivial v0.1.1 h1:iZjOX6bwDhb6Ymdj1Ircu0NJE9+6lhKpThmVedpAb/0=
+github.com/btoll/trivial v0.1.1/go.mod h1:P2mgnOC5zALOVJe/n2d4ifMRC1I+yZj0odYdpPyOqhQ=
+golang.org/x/net v0.7.0 h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
+golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
