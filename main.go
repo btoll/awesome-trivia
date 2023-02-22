@@ -11,11 +11,24 @@ import (
 	"golang.org/x/net/websocket"
 )
 
+var (
+	serverURI       = flag.String("u", "wss://192.168.1.96:3000", "URL of game websocket server")
+	gameName        = flag.String("n", "default", "Name of game")
+	tokenExpiration = flag.Float64("e", 3600, "Token expiration (in seconds)")
+	keyLength       = flag.Int("k", 25, "Key length")
+)
+
+//type Certificate struct {
+//	Host       string
+//	ValidFrom  string
+//	ValidFor   time.Duration
+//	IsCA       bool
+//	RsaBits    int
+//	EcdsaCurve string
+//	Ed25519Key bool
+//}
+
 func main() {
-	serverURI := flag.String("u", "ws://192.168.1.96:3000", "URL of game websocket server")
-	gameName := flag.String("n", "default", "Name of game")
-	tokenExpiration := flag.Float64("e", 3600, "Token expiration (in seconds)")
-	keyLength := flag.Int("k", 25, "Key length")
 	flag.Parse()
 
 	parsedUrl, err := url.Parse(*serverURI)
@@ -33,6 +46,10 @@ func main() {
 			Port:     port,
 		},
 		Path: "ws",
+	}, trivial.TLSCert{
+		EcdsaCurve: "P384",
+		Host:       "127.0.0.1,192.168.1.96",
+		IsCA:       true,
 	})
 
 	game := trivial.NewGame(*gameName, *keyLength, *tokenExpiration)
@@ -46,5 +63,6 @@ func main() {
 	http.HandleFunc("/query", server.QueryHandler)
 	http.HandleFunc("/reset", server.ResetHandler)
 	http.HandleFunc("/scoreboard", server.ScoreboardHandler)
-	http.ListenAndServe(":3000", nil)
+	//	http.ListenAndServe(":3000", nil)
+	http.ListenAndServeTLS(":3000", "cert.pem", "key.pem", nil)
 }
