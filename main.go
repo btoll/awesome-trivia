@@ -18,16 +18,6 @@ var (
 	keyLength       = flag.Int("k", 25, "Key length")
 )
 
-//type Certificate struct {
-//	Host       string
-//	ValidFrom  string
-//	ValidFor   time.Duration
-//	IsCA       bool
-//	RsaBits    int
-//	EcdsaCurve string
-//	Ed25519Key bool
-//}
-
 func main() {
 	flag.Parse()
 
@@ -50,6 +40,7 @@ func main() {
 		EcdsaCurve: "P384",
 		Host:       "127.0.0.1,192.168.1.96",
 		IsCA:       true,
+		RsaBits:    3072,
 	})
 
 	game := trivial.NewGame(*gameName, *keyLength, *tokenExpiration)

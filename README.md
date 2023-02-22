@@ -6,7 +6,7 @@ To send a single question to the game players, you can run the following query (
 
 ```
 $ curl -XGET -H "X-TRIVIA-APIKEY: GwCcn6VZntwnI7qp1kly" \
-    --data "What year did the Beatles play Budokan?,B,50,1965,1968,1970" \
+    --data "What year did the Beatles play Budokan?,2,50,1965,1968,1970" \
     127.0.0.1:3000/query
 ```
 
