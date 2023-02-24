@@ -54,15 +54,6 @@ func main() {
 
 	game := trivial.NewGame(*gameName, *keyLength, *tokenExpiration)
 	server.RegisterGame(game)
-
-	http.Handle("/ws", websocket.Handler(server.DefaultHandler))
-	http.HandleFunc("/", server.BaseHandler)
-	http.HandleFunc("/kill", server.KillHandler)
-	http.HandleFunc("/message", server.MessageHandler)
-	http.HandleFunc("/notify", server.NotifyHandler)
-	http.HandleFunc("/query", server.QueryHandler)
-	http.HandleFunc("/reset", server.ResetHandler)
-	http.HandleFunc("/scoreboard", server.ScoreboardHandler)
 	//	http.ListenAndServe(":3000", nil)
 	http.ListenAndServeTLS(":3000", "cert.pem", "key.pem", nil)
 }
