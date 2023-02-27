@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"log"
-	"net/http"
 	"net/url"
 	"strconv"
 
@@ -15,7 +14,6 @@ var (
 	serverURI       = flag.String("u", "wss://192.168.1.96:3000", "URL of game websocket server")
 	gameName        = flag.String("n", "default", "Name of game")
 	tokenExpiration = flag.Float64("e", 3600, "Token expiration (in seconds)")
-	keyLength       = flag.Int("k", 25, "Key length")
 )
 
 func main() {
@@ -43,8 +41,6 @@ func main() {
 		RsaBits:    3072,
 	})
 
-	game := trivial.NewGame(*gameName, *keyLength, *tokenExpiration)
-	server.RegisterGame(game)
-	//	http.ListenAndServe(":3000", nil)
-	http.ListenAndServeTLS(":3000", "cert.pem", "key.pem", nil)
+	game := trivial.NewGame(*gameName, *tokenExpiration)
+	server.RegisterAndStartGame(game)
 }
