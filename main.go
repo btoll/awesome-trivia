@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	serverURI       = flag.String("u", "wss://192.168.1.96:3000", "URL of game websocket server")
+	serverURL       = flag.String("u", "wss://192.168.1.96:3000", "URL of game websocket server")
 	gameName        = flag.String("n", "default", "Name of game")
 	tokenExpiration = flag.Float64("e", 3600, "Token expiration (in seconds)")
 )
@@ -19,7 +19,7 @@ var (
 func main() {
 	flag.Parse()
 
-	parsedUrl, err := url.Parse(*serverURI)
+	parsedUrl, err := url.Parse(*serverURL)
 	if err != nil {
 		log.Fatalln("game server uri could not be parsed")
 	}
@@ -27,7 +27,7 @@ func main() {
 	if err != nil {
 		log.Fatalln("port could not be parsed")
 	}
-	server := trivial.NewSocketServer(trivial.URI{
+	server := trivial.NewSocketServer(trivial.URL{
 		Sock: trivial.Socket{
 			Protocol: parsedUrl.Scheme,
 			Domain:   parsedUrl.Hostname(),
